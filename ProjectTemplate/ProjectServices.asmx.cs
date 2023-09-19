@@ -19,9 +19,9 @@ namespace ProjectTemplate
 		////////////////////////////////////////////////////////////////////////
 		///replace the values of these variables with your database credentials
 		////////////////////////////////////////////////////////////////////////
-		private string dbID = "fall2023team4";
-		private string dbPass = "fall2023team4";
-		private string dbName = "fall2023team4";
+		private string dbID = "cis440template";
+		private string dbPass = "!!Cis440";
+		private string dbName = "cis440template";
 		////////////////////////////////////////////////////////////////////////
 		
 		////////////////////////////////////////////////////////////////////////
@@ -43,8 +43,7 @@ namespace ProjectTemplate
 		{
 			try
 			{
-				// Change customers if you want to test a new dddb table
-				string testQuery = "select * from Customers";
+				string testQuery = "select * from test";
 
 				////////////////////////////////////////////////////////////////////////
 				///here's an example of using the getConString method!
@@ -56,49 +55,12 @@ namespace ProjectTemplate
 				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
 				DataTable table = new DataTable();
 				adapter.Fill(table);
-				return "Success! Team4";
+				return "Success!";
 			}
 			catch (Exception e)
 			{
 				return "Something went wrong, please check your credentials and db name and try again.  Error: "+e.Message;
 			}
 		}
-
-		[WebMethod]
-		public void placeOrder(){
-
-		
-		}
-        [WebMethod]
-        public void viewOrder(){
-
-
-        }
-
-        [WebMethod]
-        public void sendForm(){
-
-
-        }
-
-		[WebMethod]
-		public void sendReview(){
-
-		}
-
-        [WebMethod]
-        public void showReview(){
-
-
-        }
-
-        
-        [WebMethod]
-        public void viewBySeason(){
-
-
-        }
-
-
-    }
+	}
 }
