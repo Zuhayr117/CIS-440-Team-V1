@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Floral Oasis</title>
+    <link href="checkout.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1>Checkout</h1>
+    <form id="checkoutForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" required><br>
+        <button type="submit">Place Order</button>
+    </form>
+    <script>
+        // JavaScript functions (you can keep the same JavaScript code here)
+        // JavaScript functions
+        const cart = [];
+
+        function addToCart(productName, price) {
+            cart.push({ productName, price });
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartList = document.getElementById('cart');
+            cartList.innerHTML = '';
+
+            let total = 0;
+            for (const item of cart) {
+                total += item.price;
+                cartList.innerHTML += `<li>${item.productName} - $${item.price.toFixed(2)}</li>`;
+            }
+
+            cartList.innerHTML += `<li>Total: $${total.toFixed(2)}</li>`;
+        }
+
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Order placed successfully!'); // In a real system, you'd process the order and payment here.
+            cart.length = 0; // Clear the cart
+            updateCartDisplay();
+        });
+
+
+    </script>
+</body>
+</html>
