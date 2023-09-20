@@ -19,9 +19,9 @@ namespace ProjectTemplate
 		////////////////////////////////////////////////////////////////////////
 		///replace the values of these variables with your database credentials
 		////////////////////////////////////////////////////////////////////////
-		private string dbID = "cis440template";
-		private string dbPass = "!!Cis440";
-		private string dbName = "cis440template";
+		private string dbID = "fall2023team4";
+		private string dbPass = "fall2023team4";
+		private string dbName = "fall2023team4";
 		////////////////////////////////////////////////////////////////////////
 		
 		////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ namespace ProjectTemplate
 		{
 			try
 			{
-				string testQuery = "select * from test";
+				string testQuery = "select * from Employees";
 
 				////////////////////////////////////////////////////////////////////////
 				///here's an example of using the getConString method!
@@ -55,7 +55,7 @@ namespace ProjectTemplate
 				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
 				DataTable table = new DataTable();
 				adapter.Fill(table);
-				return "Success!";
+				return "Success!" + dbID;
 			}
 			catch (Exception e)
 			{
