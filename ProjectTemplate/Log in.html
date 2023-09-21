@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm" action="login.php" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+
+    <p id="loginStatus"></p>
+
+    <h2>Sign Up</h2>
+    <form id="signupForm" action="signup.php" method="POST">
+        <label for="newUsername">New Username:</label>
+        <input type="text" id="newUsername" name="newUsername" required><br><br>
+
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+        <input type="submit" value="Sign Up">
+    </form>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Simulate a successful login for demonstration purposes.
+            // In a real application, you should validate against a database.
+            if (username === "your_username" && password === "your_password") {
+                document.getElementById("loginStatus").textContent = "Login successful!";
+                
+                // Redirect to the index.html page after a successful login.
+                window.location.href = "index.html";
+            } else {
+                document.getElementById("loginStatus").textContent = "Invalid username or password.";
+            }
+        });
+
+        document.getElementById("signupForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const newUsername = document.getElementById("newUsername").value;
+            const newPassword = document.getElementById("newPassword").value;
+
+            // Simulate a successful signup for demonstration purposes.
+            // In a real application, you should create a new user in the database.
+            if (newUsername !== "" && newPassword !== "") {
+                document.getElementById("loginStatus").textContent = "Sign Up successful!";
+                
+                // Redirect to the index.html page after a successful signup.
+                window.location.href = "index.html";
+            } else {
+                document.getElementById("loginStatus").textContent = "Invalid signup data.";
+            }
+        });
+    </script>
+</body>
+</html>

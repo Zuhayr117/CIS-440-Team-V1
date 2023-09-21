@@ -90,8 +90,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="checkout.html" />
     <Content Include="Global.asax" />
+    <Content Include="index.css" />
     <Content Include="index.html" />
+    <Content Include="Log in.html" />
     <Content Include="ProjectServices.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -99,6 +102,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Emploee.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
