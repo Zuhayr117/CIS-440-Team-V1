@@ -101,7 +101,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="Emploee.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
