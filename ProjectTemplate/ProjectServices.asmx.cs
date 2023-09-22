@@ -66,177 +66,158 @@ namespace ProjectTemplate
 
 		[WebMethod(EnableSession = true)]
 		/////////////////////////////////////////////////////////////////////////
-		public string Orders()
+		public string GetCustID()
 		{
 			try
 			{
-				string testQuery = "select * from Employee";
+                //here we are grabbing that connection string from our web.config file
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+				//here's our query.  A basic select with nothing fancy.
+				string sqlSelect = "SELECT customer_id, customer_name FROM Customers WHERE customer_name=\"customer_name\";";
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!" + dbID;
-			}
+
+                //set up our connection object to be ready to use our connection string
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                //set up our command object to use our connection, and our query
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
+
+                //a data adapter acts like a bridge between our command object and 
+                //the data we are trying to get back and put in a table object
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //here's the table we want to fill with the results from our query
+                DataTable sqlDt = new DataTable();
+                //here we go filling it!
+                sqlDa.Fill(sqlDt);
+                //return the number of rows we have, that's how many accounts are in the system!
+                return sqlDt.Rows.Count.ToString();
+            }
 			catch (Exception e)
 			{
 				return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
 			}
 		}
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string Customer()
-		{
-			try
-			{
-				string testQuery = "select * from Employees";
+        [WebMethod(EnableSession = true)]
+        /////////////////////////////////////////////////////////////////////////
+        public string GetOrdID()
+        {
+            try
+            {
+                //here we are grabbing that connection string from our web.config file
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                //here's our query.  A basic select with nothing fancy.
+                string sqlSelect = "SELECT order_id FROM Orders\r\nORDER BY id DESC\r\nLIMIT 1;";
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!" + dbID;
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
-			}
-		}
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //set up our connection object to be ready to use our connection string
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                //set up our command object to use our connection, and our query
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string Employee()
-		{
-			try
-			{
-				string testQuery = "select * from Employees";
+                //a data adapter acts like a bridge between our command object and 
+                //the data we are trying to get back and put in a table object
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //here's the table we want to fill with the results from our query
+                DataTable sqlDt = new DataTable();
+                //here we go filling it!
+                sqlDa.Fill(sqlDt);
+                //return the number of rows we have, that's how many accounts are in the system!
+                return sqlDt.Rows.Count.ToString();
+            }
+            catch (Exception e)
+            {
+                return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
+            }
+        }
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!" + dbID;
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
-			}
-		}
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [WebMethod(EnableSession = true)]
+        /////////////////////////////////////////////////////////////////////////
+        public string GetProdID()
+        {
+            try
+            {
+                //here we are grabbing that connection string from our web.config file
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                //here's our query.  A basic select with nothing fancy.
+                string sqlSelect = "SELECT product_id, product_name FROM Products WHERE product_name=\"productNameGoesHere\";";
 
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string Product()
-		{
-			try
-			{
-				string testQuery = "select * from Employees";
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!" + dbID;
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
-			}
-		}
+                //set up our connection object to be ready to use our connection string
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                //set up our command object to use our connection, and our query
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string Review()
-		{
-			try
-			{
-				string testQuery = "select * from Employees";
+                //a data adapter acts like a bridge between our command object and 
+                //the data we are trying to get back and put in a table object
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //here's the table we want to fill with the results from our query
+                DataTable sqlDt = new DataTable();
+                //here we go filling it!
+                sqlDa.Fill(sqlDt);
+                //return the number of rows we have, that's how many accounts are in the system!
+                return sqlDt.Rows.Count.ToString();
+            }
+            catch (Exception e)
+            {
+                return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
+            }
+        }
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!" + dbID;
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
-			}
-		}
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        [WebMethod(EnableSession = true)]
+        /////////////////////////////////////////////////////////////////////////
+        public string InsertOrder()
+        {
+            try
+            {
+                //here we are grabbing that connection string from our web.config file
+                string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
+                //here's our query.  A basic select with nothing fancy.
+                string sqlSelect = "INSERT INTO Orders (customer_id, order_id, product_id, order_amount, order_date)\r\nVALUES (value1, value2, ...);";
 
-		[WebMethod(EnableSession = true)]
-		/////////////////////////////////////////////////////////////////////////
-		public string Wishlist()
-		{
-			try
-			{
-				string testQuery = "select * from Employees";
 
-				////////////////////////////////////////////////////////////////////////
-				///here's an example of using the getConString method!
-				////////////////////////////////////////////////////////////////////////
-				MySqlConnection con = new MySqlConnection(getConString());
-				////////////////////////////////////////////////////////////////////////
 
-				MySqlCommand cmd = new MySqlCommand(testQuery, con);
-				MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-				DataTable table = new DataTable();
-				adapter.Fill(table);
-				return "Success!" + dbID;
-			}
-			catch (Exception e)
-			{
-				return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
-			}
-		}
+                //set up our connection object to be ready to use our connection string
+                MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
+                //set up our command object to use our connection, and our query
+                MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	}
+
+                //a data adapter acts like a bridge between our command object and 
+                //the data we are trying to get back and put in a table object
+                MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
+                //here's the table we want to fill with the results from our query
+                DataTable sqlDt = new DataTable();
+                //here we go filling it!
+                sqlDa.Fill(sqlDt);
+                //return the number of rows we have, that's how many accounts are in the system!
+                return sqlDt.Rows.Count.ToString();
+            }
+            catch (Exception e)
+            {
+                return "Something went wrong, please check your credentials and db name and try again.  Error: " + e.Message;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    }
 }
