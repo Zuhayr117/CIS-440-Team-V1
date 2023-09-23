@@ -242,7 +242,7 @@ namespace ProjectTemplate{
             }
             sqlConnection.Close();
         }
-        // Endd off Account Web Methods... Login, logout, request account Emp/Cust...
+        // End of Account Web Methods... Login, logout, request account Emp/Cust...
         /////////////////////////////////////////////////////////////////////////
 
 
