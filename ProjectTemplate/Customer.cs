@@ -8,15 +8,15 @@ namespace ProjectTemplate
     public class Customer
     {
 
-        public string ID;
-        public string Name;
+        public int ID;
+        public string name;
         public string username;
         public string password;
         public string phone; // maybe int
         public string email;
         public string adress;
         public string state;
-        public int zip;
+        public string zip;
         public int paymentCard;
         public int paymentCCV;
         public int paymentExpire;
