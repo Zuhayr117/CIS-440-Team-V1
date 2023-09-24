@@ -7,7 +7,7 @@ namespace ProjectTemplate
 {
     public class Customer
     {
-
+      
         public int ID;
         public string name;
         public string username;

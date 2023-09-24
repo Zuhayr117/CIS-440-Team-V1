@@ -10,10 +10,10 @@ namespace ProjectTemplate
 
         public int ID;
         public int orderID;
-        public DateTime orderDate;
+        public string orderDate;
         public double orderamount;
         public int customerID;
-        public int prodductID;
+        public int productID;
         public string orderAdress;
         public string orderState;
         public int orderZip;
