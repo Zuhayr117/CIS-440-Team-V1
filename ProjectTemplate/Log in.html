@@ -21,13 +21,17 @@
 
     <h2>Sign Up</h2>
     <form id="signupForm" action="signup.php" method="POST">
+        <label for="newName">New Name:</label>
+        <input type="text" id="newName" name="newName" required><br><br>
+
         <label for="newUsername">New Username:</label>
         <input type="text" id="newUsername" name="newUsername" required><br><br>
 
         <label for="newPassword">New Password:</label>
         <input type="password" id="newPassword" name="newPassword" required><br><br>
 
-        <input type="submit" value="Sign Up">
+        <input type="submit" value="Sign Up" onclick="RequestAccountEmployee()">
+        <button onclick="javascript: RequestAccountEmployee();">sign up Employee</button>
     </form>
     <!--LogOnEmployees-->
 
@@ -59,11 +63,14 @@
 
       // request account employees
         function RequestAccountEmployee() {
-            var userId = document.getElementById("username").value;
-            var pass = document.getElementById("password").value;
 
-            var webMethod = "ProjectServices.asmx/LogOnEmployees"; // which function we are using
-            var parameters = "{\"uid\":\"" + encodeURI(userId) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+            //
+            var employeeName = document.getElementById("newName").value;
+            var employeeUsername = document.getElementById("newUsername").value;
+            var employeePassword = document.getElementById("newPassword").value;
+
+            var webMethod = "ProjectServices.asmx/RequestAccountEmployee"; // which function we are using
+            var parameters = "{\"newName\":\"" + encodeURI(employeeName) + "\",\"newUsername\":\"" + encodeURI(employeeUsername) + "\",\"newPassword\":\"" + encodeURI(employeePassword) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
             $.ajax({
                 type: "POST",
                 url: webMethod,
