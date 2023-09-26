@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Login Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <h2>Login</h2>
@@ -12,7 +13,8 @@
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
 
-        <input type="submit" value="Login">
+        <input type="submit" value="Login" onclick="javascript: LogOnEmployees(a,b);">
+        <button onclick="javascript: LogOnEmployees();">Login Employee</button>
     </form>
 
     <p id="loginStatus"></p>
@@ -27,9 +29,61 @@
 
         <input type="submit" value="Sign Up">
     </form>
+    <!--LogOnEmployees-->
+
+    <script type="text/javascript">
+        function LogOnEmployees() {
+            var userId = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+
+            var webMethod = "ProjectServices.asmx/LogOnEmployees"; // which function we are using
+            var parameters = "{\"uid\":\"" + encodeURI(userId) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {   // what server responds with
+                    var responseFromServer = msg.d;
+                    alert(responseFromServer);
+                },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                }
+            });
+        }
+
+
+       // string employeeName, string employeeUsername, string employeePassword
+
+      // request account employees
+        function RequestAccountEmployee() {
+            var userId = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+
+            var webMethod = "ProjectServices.asmx/LogOnEmployees"; // which function we are using
+            var parameters = "{\"uid\":\"" + encodeURI(userId) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+            $.ajax({
+                type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {   // what server responds with
+                    var responseFromServer = msg.d;
+                    alert(responseFromServer);
+                },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                }
+            });
+        }
+    </script>
+    <!--END OF YOUR OWN JAVASCRIPT-->
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
             event.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
@@ -38,7 +92,7 @@
             // In a real application, you should validate against a database.
             if (username === "your_username" && password === "your_password") {
                 document.getElementById("loginStatus").textContent = "Login successful!";
-                
+
                 // Redirect to the index.html page after a successful login.
                 window.location.href = "index.html";
             } else {
@@ -46,7 +100,7 @@
             }
         });
 
-        document.getElementById("signupForm").addEventListener("submit", function(event) {
+        document.getElementById("signupForm").addEventListener("submit", function (event) {
             event.preventDefault();
             const newUsername = document.getElementById("newUsername").value;
             const newPassword = document.getElementById("newPassword").value;
@@ -55,13 +109,16 @@
             // In a real application, you should create a new user in the database.
             if (newUsername !== "" && newPassword !== "") {
                 document.getElementById("loginStatus").textContent = "Sign Up successful!";
-                
+
                 // Redirect to the index.html page after a successful signup.
                 window.location.href = "index.html";
             } else {
                 document.getElementById("loginStatus").textContent = "Invalid signup data.";
             }
         });
+
+
     </script>
+
 </body>
 </html>
