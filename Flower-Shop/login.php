@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     } elseif ($username === $adminUsername && $password === $adminPassword) {
         // Admin login, redirect to admin.html
-        header("Location: index.html");
+        header("Location: admin.html");
         exit;
     } else {
         // Authentication failed, redirect back to login page
