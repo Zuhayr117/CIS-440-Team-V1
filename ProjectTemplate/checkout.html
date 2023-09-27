@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Floral Oasis</title>
+    
+     <img id=logo src="logo.png" alt="site_logo" width=500 length=100 class=center> 
+     <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Log In</a>
+        <a href="checkout.html">Checkout</a>
+      </nav>
     <link href="checkout.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -11,13 +18,34 @@
     <form id="checkoutForm">
         <label for="name">Name:</label>
         <input type="text" id="name" required><br>
+
+        <label for="name">Email:</label>
+        <input type="text" id="Email" required><br>
+
+        <label for="address">Phone Number:</label>
+        <input type="text" id="Number" required><br>
+
         <label for="address">Address:</label>
         <input type="text" id="address" required><br>
+
+        <label for="address">payment methed:</label>
+        <input type="text" id="payment" required><br>
+
+        <label for="address">Card Number:</label>
+        <input type="text" id="payment" required><br>
+
+        <label for="address">CVV:</label>
+        <input type="text" id="payment" required><br>
+
+        
+        <label for="address">Notes:</label>
+        <input type="text" id="Notes" required><br>
+
+
         <button type="submit">Place Order</button>
     </form>
     <script>
-        // JavaScript functions (you can keep the same JavaScript code here)
-        // JavaScript functions
+        
         const cart = [];
 
         function addToCart(productName, price) {

@@ -90,12 +90,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin.html" />
     <Content Include="checkout.html" />
     <Content Include="Global.asax" />
     <Content Include="index.css" />
     <Content Include="index.html" />
     <Content Include="Log in.html" />
+    <Content Include="logo.png" />
+    <Content Include="peonies.jpeg" />
+    <Content Include="pinkpeony.jpg" />
     <Content Include="ProjectServices.asmx" />
+    <Content Include="redrose.jpg" />
+    <Content Include="tulips.jpeg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
