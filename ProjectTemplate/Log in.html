@@ -33,6 +33,7 @@
 
     <h2>Sign Up</h2>
     <form id="signupForm" method="POST">
+
         <label for="newName">Name:</label>
         <input type="text" id="newName" name="newName" required><br><br>
 
@@ -78,12 +79,12 @@
         }
 
 
-        // string employeeName, string employeeUsername, string employeePassword
+       
 
         // request account employees
         function RequestAccountEmployee() {
 
-            //
+            
             var employeeName = document.getElementById("newName").value;
             var employeeUsername = document.getElementById("newUsername").value;
             var employeePassword = document.getElementById("newPassword").value;
@@ -106,41 +107,7 @@
             });
         }
     </script>
-    //END OF YOUR OWN JAVASCRIPT
+   
 
-
-
-
-
-
-
-    <script>
-        // maybe delete all below
-        document.getElementById("loginForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            // Simulate a successful login for demonstration purposes.
-
-        });
-
-        document.getElementById("signupForm").addEventListener("submit", function (event) {
-            event.preventDefault();
-            const newUsername = document.getElementById("newUsername").value;
-            const newPassword = document.getElementById("newPassword").value;
-
-            // Simulate a successful signup for demonstration purposes.
-            // In a real application, you should create a new user in the database.
-            if (newUsername !== "" && newPassword !== "") {
-                document.getElementById("loginStatus").textContent = "Sign Up successful!";
-
-                // Redirect to the index.html page after a successful signup.
-                window.location.href = "index.html";
-            } else {
-                document.getElementById("loginStatus").textContent = "Invalid signup data.";
-            }
-        });
-    </script>
 </body>
 </html>
