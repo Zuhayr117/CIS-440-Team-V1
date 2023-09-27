@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <nav>
         <a href="index.html">Home</a>
@@ -42,39 +43,98 @@
     </form>
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
 
-            // Simulate a successful login for demonstration purposes.
-            // In a real application, you should validate against a database.
-            if (username === "your_username" && password === "your_password") {
-                document.getElementById("loginStatus").textContent = "Login successful!";
-                
-                // Redirect to the index.html page after a successful login.
-                window.location.href = "index.html";
-            } else {
-                document.getElementById("loginStatus").textContent = "Invalid username or password.";
+
+
+         <!--    LogOnEmployees-- >
+
+            <script type="text/javascript">
+                function LogOnEmployees() {
+                var userId = document.getElementById("username").value;
+                var pass = document.getElementById("password").value;
+
+                var webMethod = "ProjectServices.asmx/LogOnEmployees"; // which function we are using
+                var parameters = "{\"uid\":\"" + encodeURI(userId) + "\",\"pass\":\"" + encodeURI(pass) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+                $.ajax({
+                    type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {   // what server responds with
+                        var responseFromServer = msg.d;
+                alert(responseFromServer);
+                    },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                    }
+                });
             }
-        });
 
-        document.getElementById("signupForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const newUsername = document.getElementById("newUsername").value;
-            const newPassword = document.getElementById("newPassword").value;
 
-            // Simulate a successful signup for demonstration purposes.
-            // In a real application, you should create a new user in the database.
-            if (newUsername !== "" && newPassword !== "") {
-                document.getElementById("loginStatus").textContent = "Sign Up successful!";
-                
-                // Redirect to the index.html page after a successful signup.
-                window.location.href = "index.html";
-            } else {
-                document.getElementById("loginStatus").textContent = "Invalid signup data.";
+                // string employeeName, string employeeUsername, string employeePassword
+
+                // request account employees
+                function RequestAccountEmployee() {
+
+                //
+                var employeeName = document.getElementById("newName").value;
+                var employeeUsername = document.getElementById("newUsername").value;
+                var employeePassword = document.getElementById("newPassword").value;
+
+                var webMethod = "ProjectServices.asmx/RequestAccountEmployee"; // which function we are using
+                var parameters = "{\"newName\":\"" + encodeURI(employeeName) + "\",\"newUsername\":\"" + encodeURI(employeeUsername) + "\",\"newPassword\":\"" + encodeURI(employeePassword) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
+                $.ajax({
+                    type: "POST",
+                url: webMethod,
+                data: parameters,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {   // what server responds with
+                        var responseFromServer = msg.d;
+                alert(responseFromServer);
+                    },
+                error: function (e) {
+                    alert("this code will only execute if javascript is unable to access the webservice");
+                    }
+                });
             }
-        });
+    </script>
+    <!--END OF YOUR OWN JAVASCRIPT-->
+    // maybe delete all below
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Simulate a successful login for demonstration purposes.
+    // In a real application, you should validate against a database.
+    if (username === "your_username" && password === "your_password") {
+    document.getElementById("loginStatus").textContent = "Login successful!";
+
+    // Redirect to the index.html page after a successful login.
+    window.location.href = "index.html";
+    } else {
+    document.getElementById("loginStatus").textContent = "Invalid username or password.";
+    }
+    });
+
+    document.getElementById("signupForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const newUsername = document.getElementById("newUsername").value;
+    const newPassword = document.getElementById("newPassword").value;
+
+    // Simulate a successful signup for demonstration purposes.
+    // In a real application, you should create a new user in the database.
+    if (newUsername !== "" && newPassword !== "") {
+    document.getElementById("loginStatus").textContent = "Sign Up successful!";
+
+    // Redirect to the index.html page after a successful signup.
+    window.location.href = "index.html";
+    } else {
+    document.getElementById("loginStatus").textContent = "Invalid signup data.";
+    }
+    });
     </script>
 </body>
 </html>

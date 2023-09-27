@@ -12,7 +12,7 @@ namespace ProjectTemplate
         public string name;
         public string username;
         public string password;
-        public string phone; // maybe int
+        public string phone;
         public string email;
         public string adress;
         public string state;
