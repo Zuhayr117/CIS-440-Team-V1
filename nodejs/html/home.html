@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floral Oasis</title>
+
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="../index.html">Log In</a>
+        <a href="../checkout.html">Checkout</a>
+    </nav>
+    <img id=logo src="../images/logo.png" alt="site_logo" width=500 length=100 class=center>
+    
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body> 
+    <hr>
+    <h1>✿ New Arrivals ✿</h1>
+    <div class="product1">
+        <img src="../images/pinkpeony.jpg" alt="Pink Peony" width=250 length=500>
+        <h2>Princess Peonies</h2>
+        <p>Delicate peonies arranged with carnations perfect for kitchen spaces. </p>
+        <p>Price: $10.00</p>
+        <button onclick="addToCart('Princess Peonies', 10.00)">Add to Cart</button>
+    </div>
+    <div class="product2">
+        <img src="../images/redrose.jpg" alt="Red Rose" width=250 length=500>
+        <h2>Regal Rose</h2>
+        <p>Pristine seasonal roses adorned with tulips and snapdragons.</p>
+        <p>Price: $15.00</p>
+        <button onclick="addToCart('Regal Rose', 15.00)">Add to Cart</button>
+    </div>
+
+
+
+
+    <div class="product3">
+        <img src="../images/tulips.jpeg" alt="Tulips"z width=250 length=500>
+        <h2>Tulips</h2>
+        <p>Versatile arrangement of tulips for any occasion</p>
+        <p>Price: $10.00</p>
+        <button onclick="addToCart('Tulips', 10.00)">Add to Cart</button>
+    </div>
+
+
+
+    <div class="product4">
+        <img src="../images/peonies.jpeg" alt="Peonies" width=250 length=500>
+        <h2>Peonies</h2>
+        <p>'Coral Charm' peony arrangement for a fresh, springy look</p>
+        <p>Price: $15.00</p>
+        <button onclick="addToCart('Peonies', 15.00)">Add to Cart</button>
+    </div>
+    <hr>
+
+    <h1 >Shopping Cart</h1>
+    <ul id="cart">
+        <!-- Cart items will be displayed here -->
+    </ul>
+  
+
+<p><a href="../checkout.html">Proceed to Checkout</a></p>
+
+    <!-- 
+    <h1>Checkout</h1>
+    <form id="checkoutForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+        <label for="address">Address:</label>
+        <input type="text" id="address" required><br>
+        <button type="submit">Place Order</button>
+    </form>
+
+-->
+
+    <script>
+        // Initialize the cart array and retrieve it from local storage if available
+let cart = [];
+
+const storedCart = localStorage.getItem('cart');
+if (storedCart) {
+    cart = JSON.parse(storedCart);
+}
+
+// Function to add an item to the cart
+function addToCart(productName, price) {
+    cart.push({ productName, price });
+
+    // Save the updated cart data to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Update the cart display
+    updateCartDisplay();
+}
+
+// Function to update the cart display
+function updateCartDisplay() {
+    const cartList = document.getElementById('cart');
+    cartList.innerHTML = '';
+
+    let total = 0;
+    for (const item of cart) {
+        total += item.price;
+        cartList.innerHTML += `<li>${item.productName} - $${item.price.toFixed(2)}</li>`;
+    }
+
+    cartList.innerHTML += `<li>Total: $${total.toFixed(2)}</li>`;
+}
+
+// Initial call to display the cart contents
+updateCartDisplay();
+    </script>
+</body>
+</html>

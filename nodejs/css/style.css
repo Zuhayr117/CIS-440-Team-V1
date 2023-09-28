@@ -1,0 +1,54 @@
+
+body{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: #F8C8DC;
+  text-align: center;
+  align-content: center;
+}
+
+h1{
+  text-align: center;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.product1{
+  text-align: center;
+  padding: 15px;
+  width:25%;
+  margin:auto;
+}
+
+.product2{
+  text-align: center;
+  padding: 15px;
+  width:25%;
+  margin:auto;
+}
+
+
+.product3{
+  text-align: center;
+  padding: 15px;
+  width:25%;
+  margin:auto;
+}
+
+.product4{
+  text-align: center;
+  padding: 15px;
+  width:25%;
+  margin:auto;
+}
+
+
+
+
+#checkoutForm{
+  float:clear;
+}

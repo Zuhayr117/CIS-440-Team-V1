@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Floral Oasis</title>
+    
+     <img id=logo src="../images/logo.png" alt="site_logo" width=500 length=100 class=center> 
+     <nav>
+        <a href="home.html">Home</a>
+        <a href="../index.html">Log In</a>
+        <a href="checkout.html">Checkout</a>
+      </nav>
+      <link href="../css/style.css" rel="stylesheet" type="text/css">
+      <script src=https://code.jquery.com/jquery-3.6.4.min.js> </script>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <form id="checkoutForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="name">Email:</label>
+        <input type="text" id="Email" required><br>
+
+        <label for="address">Phone Number:</label>
+        <input type="text" id="Number" required><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" required><br>
+
+        <label for="address">payment methed:</label>
+        <input type="text" id="payment" required><br>
+
+        <label for="address">Card Number:</label>
+        <input type="text" id="payment" required><br>
+
+        <label for="address">CVV:</label>
+        <input type="text" id="payment" required><br>
+
+        
+        <label for="address">Notes:</label>
+        <input type="text" id="Notes" required><br>
+
+
+        <button type="submit">Place Order</button>
+    </form>
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // add order in database
+            addOrder();
+            alert('Order placed successfully!'); // In a real system, you'd process the order and payment here.
+        });
+
+        // Initialize the order database
+        let orderDatabase = [];
+        let databaseProducts = [];
+
+        function addOrder() {
+            
+            const storedCart = JSON.parse(localStorage.getItem("cart"));
+
+            // Function to convert the cart into the order database
+            function convertCartToOrderDatabase(cart) {
+                for (const item of cart) {
+                    const existingProduct = orderDatabase.find(product => product.productName === item.productName);
+                    
+                    if (existingProduct) {
+                        // Product is already in the order database, update the count and total price
+                        existingProduct.count++;
+                        existingProduct.totalPrice += item.price;
+                    } else {
+                        // Product is not in the order database, add a new entry
+                        orderDatabase.push({
+                            productName: item.productName,
+                            count: 1,
+                            totalPrice: item.price,
+                        });
+                    }
+                }
+            }
+            convertCartToOrderDatabase(storedCart);
+            getDatabaseInfo(orderDatabase);
+        }
+
+    // Function to convert the cart into the order database
+    function getDatabaseInfo(cart) {
+
+    // Make a GET request to fetch products from the server
+    $.get("/getProducts", function (products) {
+        // Assuming 'products' is an array of objects with 'product_name' and 'product_id' properties
+        for (var i = 0; i < products.length; i++) {
+            // Push each product name and product ID into the 'databaseProducts' array
+            databaseProducts.push({
+                productName: products[i].product_name,
+                productId: products[i].product_id
+            });
+        }
+        // Now 'databaseProducts' contains the product names and IDs from the server
+        // You can use this array to map products in your cart to product IDs
+    });
+
+    var lastOrderNum;
+    $.get("/getMostRecentOrder", function (orders) {
+        lastOrderNum = orders.order_id;
+    });
+
+    let g;
+    for (var i=0; i < databaseProducts.length, i++;)
+    {
+        for (var j=0; j < orderDatabase.length; j++)
+        {
+            if (orderDatabase[j].productName == databaseProducts[i].productName)
+            {
+                orderDatabase[j].product_id = databaseProducts[i].productId;
+            }
+        }
+    }
+
+    const currentUser = localStorage.getItem("currentUser");
+    const currentUserId = localStorage.getItem("currentUserId");
+    var newName = $("#name").val;
+    console.log("printing orderDatabase");
+    console.log(orderDatabase);
+    var newRow = []
+    orderDatabase.forEach(function(){
+        newRow = {
+            customer_id: 2,
+            order_id: 7,
+            product_id: 1,
+            order_amount: 3
+        };
+        console.log("printing newRow");
+        console.log(newRow);
+        InsertOrder(newRow);
+    })
+}
+
+function InsertOrder(newOrderPart)
+{
+    console.log("inside insertOrder");
+    $.ajax({
+        type: "POST",
+        url: "/insertOrder",
+        contentType: "application/json", // Set content type to JSON
+        data: JSON.stringify(newOrderPart), // Convert the JavaScript object to JSON
+        success: function (response) {
+            console.log("New order added to the database");
+            $("#loginStatus").text("Order processed.");
+        },
+        error: function (error) {
+            console.error("Error adding a new row: " + error.responseText);
+        }
+    }
+    )
+}
+
+    </script>
+</body>
+</html>

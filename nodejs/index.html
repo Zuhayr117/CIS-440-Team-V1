@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <img id=logo src="./images/logo.png" alt="site_logo" width=500 length=100 class=center>
+
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <script src=https://code.jquery.com/jquery-3.6.4.min.js> </script>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="button" value="Login" onclick="checkLogin()">
+    </form>
+
+    <p id="loginStatus"></p>
+
+    <br />
+
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <label for="newName">Name:</label>
+        <input type="text" id="newName" name="newName" required><br><br>
+
+        <label for="newUsername">New Username:</label>
+        <input type="text" id="newUsername" name="newUsername" required><br><br>
+
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required><br><br>
+
+        <input type="button" value="Sign Up" onclick="addUser()">
+    </form>
+
+    <p id="signUpStatus"></p>
+
+    <script>
+function checkLogin() { 
+    $.get("/getCustomers", function (customers) {
+        console.log("Printing customer table:");
+        console.log(customers);
+
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        var userFound = false;
+
+        for (var i = 0; i < customers.length; i++) {
+            if (username === customers[i].customer_username) {
+                if (password === customers[i].customer_password) {
+                    console.log("Valid");
+                    localStorage.setItem("currentUser", username);
+                    localStorage.setItem("currentUserId", customers[i].customer_id);
+                    window.location.href = "./html/home.html";
+                    userFound = true;
+                } else {
+                    $("#loginStatus").text("Incorrect password");
+                    userFound = true;
+                }
+                break;
+            }
+        }
+
+        if (!userFound) {
+            $("#loginStatus").text("No username found");
+        }
+    })
+    .fail(function (error) {
+        console.error("Error fetching customers: " + error);
+    });
+}
+
+function addUser() {
+    var newName = $("#newName").val();
+    var newUsername = $("#newUsername").val();
+    var newPassword = $("#newPassword").val();
+
+    // Create an object to send in the POST request
+    var newRow = {
+        customer_name: newName,
+        customer_username: newUsername,
+        customer_password: newPassword
+    };
+
+    // Send an AJAX POST request to update the server-side database with the new data
+    $.ajax({
+        type: "POST",
+        url: "/insertCustomer",
+        contentType: "application/json", // Set content type to JSON
+        data: JSON.stringify(newRow), // Convert the JavaScript object to JSON
+        success: function (response) {
+            console.log("New row added to the database");
+            $("#loginStatus").text("Account created. Proceed to login.");
+        },
+        error: function (error) {
+            console.error("Error adding a new row: " + error.responseText);
+        }
+    });
+}
+    </script>
+</body>
+</html>
