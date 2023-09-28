@@ -273,6 +273,9 @@ namespace ProjectTemplate
         // Start of complex data / class manipulation
         // Account manipulation
 
+
+
+//278
         //EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
         [WebMethod(EnableSession = true)]
         public Customer[] GetCustomers()
@@ -286,7 +289,7 @@ namespace ProjectTemplate
             //WE ONLY SHARE ACCOUNTS WITH LOGGED IN USERS!
             if (Session["Customer_id"] != null || Session["employee_id"] != null)
             {
-                DataTable sqlDt = new DataTable("customers");
+                DataTable sqlDt = new DataTable("Customers");
 
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
                 string sqlSelect = "Select customer_id, customer_name, customer_username, customer_password, customer_phone," +
@@ -388,7 +391,7 @@ namespace ProjectTemplate
             {
             }
         }
-
+ //395
         //EXAMPLE OF A SELECT, AND RETURNING "COMPLEX" DATA TYPES
         [WebMethod(EnableSession = true)]
         public Order[] GetOrders()
@@ -405,9 +408,10 @@ namespace ProjectTemplate
                 DataTable sqlDt = new DataTable("Orders");
 
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-                string sqlSelect = "Select id, order_id, order_date, order_amount, customer_id, product_id, " +
+                string sqlSelect = "Select id, order_id, order_date, order_amount, customer_id, product_id from Orders";
+                    /*"Select id, order_id, order_date, order_amount, customer_id, product_id, " +
                     "order_address, order_address_state, order_zip, extra_notes, order_payment_card, order_payment_cvv_code, order_payment_expiration From Orders";
-
+*/
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
 
