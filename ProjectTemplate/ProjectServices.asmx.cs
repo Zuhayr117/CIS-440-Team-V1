@@ -313,14 +313,14 @@ namespace ProjectTemplate
                         {
 
                             ID = Convert.ToInt32(sqlDt.Rows[i]["customer_id"]),
-                            name = sqlDt.Rows[i]["customer_name"].ToString(),
-                            username = sqlDt.Rows[i]["customer_username"].ToString(),
-                            password = sqlDt.Rows[i]["customer_password"].ToString(),
-                            phone = sqlDt.Rows[i]["customer_phone"].ToString(),
-                            email = sqlDt.Rows[i]["customer_email"].ToString(),
-                            adress = sqlDt.Rows[i]["customer_address"].ToString(),
-                            state = sqlDt.Rows[i]["customer_address_state"].ToString(),
-                            zip = sqlDt.Rows[i]["customer_zip"].ToString()
+                            name = Convert.ToString(sqlDt.Rows[i]["customer_name"]),
+                            username = Convert.ToString(sqlDt.Rows[i]["customer_username"]),
+                            password = Convert.ToString(sqlDt.Rows[i]["customer_password"]),
+                            phone = Convert.ToString(sqlDt.Rows[i]["customer_phone"]),
+                            email = Convert.ToString(sqlDt.Rows[i]["customer_email"]),
+                            adress = Convert.ToString(sqlDt.Rows[i]["customer_address"]),
+                            state = Convert.ToString(sqlDt.Rows[i]["customer_address_state"]),
+                            zip = Convert.ToString(sqlDt.Rows[i]["customer_zip"])
                         });
                     }
 
@@ -329,8 +329,8 @@ namespace ProjectTemplate
                         customer.Add(new Customer
                         {
                             ID = Convert.ToInt32(sqlDt.Rows[i]["customer_id"]),
-                            name = sqlDt.Rows[i]["customer_name"].ToString(),
-                            state = sqlDt.Rows[i]["customer_address_state"].ToString(),
+                            name = Convert.ToString(sqlDt.Rows[i]["customer_name"]),
+                            state = Convert.ToString(sqlDt.Rows[i]["customer_address_state"])
                         });
                     }
                 }
@@ -405,11 +405,12 @@ namespace ProjectTemplate
                 DataTable sqlDt = new DataTable("Orders");
 
                 string sqlConnectString = System.Configuration.ConfigurationManager.ConnectionStrings["myDB"].ConnectionString;
-                string sqlSelect = "Select order_id, order_date, order_amount, customer_id, product_id, " +
+                string sqlSelect = "Select id, order_id, order_date, order_amount, customer_id, product_id, " +
                     "order_address, order_address_state, order_zip, extra_notes, order_payment_card, order_payment_cvv_code, order_payment_expiration From Orders";
 
                 MySqlConnection sqlConnection = new MySqlConnection(sqlConnectString);
                 MySqlCommand sqlCommand = new MySqlCommand(sqlSelect, sqlConnection);
+
 
                 //gonna use this to fill a data table
                 MySqlDataAdapter sqlDa = new MySqlDataAdapter(sqlCommand);
@@ -427,19 +428,19 @@ namespace ProjectTemplate
                     {
                         order.Add(new Order
                         {
-
+                            ID = Convert.ToInt32(sqlDt.Rows[i]["id"]),
                             orderID = Convert.ToInt32(sqlDt.Rows[i]["order_id"]),
-                            orderDate = sqlDt.Rows[i]["order_date"].ToString(),
+                            orderDate = Convert.ToDateTime(sqlDt.Rows[i]["order_date"]),
                             orderamount = Convert.ToInt32(sqlDt.Rows[i]["order_amount"]),
                             customerID = Convert.ToInt32(sqlDt.Rows[i]["customer_id"]),
                             productID = Convert.ToInt32(sqlDt.Rows[i]["product_id"]),
-                            orderAdress = sqlDt.Rows[i]["order_address"].ToString(),
-                            orderState = sqlDt.Rows[i]["order_address_state"].ToString(),
-                            orderZip = Convert.ToInt32(sqlDt.Rows[i]["order_zip"]),
-                            notes = sqlDt.Rows[i]["extra_notes"].ToString(),
-                            paymentCard = Convert.ToInt32(sqlDt.Rows[i]["order_payment_card"]),
+                          /*  orderAdress = Convert.ToString(sqlDt.Rows[i]["order_address"]),
+                            orderState = Convert.ToString(sqlDt.Rows[i]["order_address_state"]),
+                            orderZip = Convert.ToString(sqlDt.Rows[i]["order_zip"]),
+                            notes = Convert.ToString(sqlDt.Rows[i]["extra_notes"]),
+                            paymentCard = Convert.ToString(sqlDt.Rows[i]["order_payment_card"]),
                             paymentCCV = Convert.ToInt32(sqlDt.Rows[i]["order_payment_ccv_code"]),
-                            paymentExpire = Convert.ToInt32(sqlDt.Rows[i]["order_payment_expiration"]),
+                            paymentExpire = Convert.ToString(sqlDt.Rows[i]["order_payment_expiration"]),*/
                         });
                     }
 

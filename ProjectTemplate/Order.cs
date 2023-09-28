@@ -10,17 +10,17 @@ namespace ProjectTemplate
 
         public int ID;
         public int orderID;
-        public string orderDate;
-        public double orderamount;
+        public DateTime orderDate;
+        public int orderamount;
         public int customerID;
         public int productID;
-        public string orderAdress;
+        /*public string orderAdress;
         public string orderState;
-        public int orderZip;
+        public string orderZip;
         public string notes;
-        public int paymentCard;
+        public string paymentCard;
         public int paymentCCV;
-        public int paymentExpire;
+        public string paymentExpire;*/
 
     }
    

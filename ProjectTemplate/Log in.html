@@ -32,19 +32,31 @@
     <br />
 
     <h2>Sign Up</h2>
-    <form id="signupForm" method="POST">
+    <form id="signupForm" onsubmit="CreateAccount($('#newName').val(), $('#newUsername').val(), $('#newPassword').val());">
+        <div class="newAccountBox">
+            
+                <div class="left">Request Account</div>
+                <div><a href="#" onclick="showPanel('logonPanel')" class="tinyLink">...or log on</a></div>
+                <hr />
+                <div>
+                    <label for="newName">Name:</label>
+                    <input type="text" id="newName" name="newName" required><br><br>
+                </div>
+                <div>
+                    <label for="newUsername">New Username:</label>
+                    <input type="text" id="newUsername" name="newUsername" required><br><br>
+                </div>
+                <div>
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" name="newPassword" required><br><br>
+                </div>
+                <div>
 
-        <label for="newName">Name:</label>
-        <input type="text" id="newName" name="newName" required><br><br>
-
-        <label for="newUsername">New Username:</label>
-        <input type="text" id="newUsername" name="newUsername" required><br><br>
-
-        <label for="newPassword">New Password:</label>
-        <input type="password" id="newPassword" name="newPassword" required><br><br>
-
-        <input type="submit" value="Sign Up" onclick="RequestAccountEmployee()">
-    </form>
+                    <input type="submit" value="Sign Up">
+                </div>
+          
+    </div>
+        </form>
 
 
 
@@ -82,12 +94,8 @@
        
 
         // request account employees
-        function RequestAccountEmployee() {
+        function RequestAccountEmployee(employeeName, employeeUsername, employeePassword) {
 
-            
-            var employeeName = document.getElementById("newName").value;
-            var employeeUsername = document.getElementById("newUsername").value;
-            var employeePassword = document.getElementById("newPassword").value;
 
             var webMethod = "ProjectServices.asmx/RequestAccountEmployee"; // which function we are using
             var parameters = "{\"newName\":\"" + encodeURI(employeeName) + "\",\"newUsername\":\"" + encodeURI(employeeUsername) + "\",\"newPassword\":\"" + encodeURI(employeePassword) + "\"}";			//jQuery ajax method // ajax is where we call the fuction and parameters
