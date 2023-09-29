@@ -43,6 +43,8 @@
     <p id="signUpStatus"></p>
 
     <script>
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("currentUserId");
 function checkLogin() { 
     $.get("/getCustomers", function (customers) {
         console.log("Printing customer table:");

@@ -146,40 +146,43 @@
 
     -->
 
-    <script>// Initialize the cart array and retrieve it from local storage if available
-        let cart = [];
+    <script>
+        // Initialize the cart array and retrieve it from local storage if available
+let cart = [];
+localStorage.removeItem('cart');
 
-        const storedCart = localStorage.getItem('cart');
-        if (storedCart) {
-            cart = JSON.parse(storedCart);
-        }
+const storedCart = localStorage.getItem('cart');
+if (storedCart) {
+    cart = JSON.parse(storedCart);
+}
 
-        // Function to add an item to the cart
-        function addToCart(productName, price) {
-            cart.push({ productName, price });
+// Function to add an item to the cart
+function addToCart(productName, price) {
+    cart.push({ productName, price });
 
-            // Save the updated cart data to local storage
-            localStorage.setItem('cart', JSON.stringify(cart));
+    // Save the updated cart data to local storage
+    localStorage.setItem('cart', JSON.stringify(cart));
 
-            // Update the cart display
-            updateCartDisplay();
-        }
+    // Update the cart display
+    updateCartDisplay();
+}
 
-        // Function to update the cart display
-        function updateCartDisplay() {
-            const cartList = document.getElementById('cart');
-            cartList.innerHTML = '';
+// Function to update the cart display
+function updateCartDisplay() {
+    const cartList = document.getElementById('cart');
+    cartList.innerHTML = '';
 
-            let total = 0;
-            for (const item of cart) {
-                total += item.price;
-                cartList.innerHTML += `<li>${item.productName} - $${item.price.toFixed(2)}</li>`;
-            }
+    let total = 0;
+    for (const item of cart) {
+        total += item.price;
+        cartList.innerHTML += `<li>${item.productName} - $${item.price.toFixed(2)}</li>`;
+    }
 
-            cartList.innerHTML += `<li>Total: $${total.toFixed(2)}</li>`;
-        }
+    cartList.innerHTML += `<li>Total: $${total.toFixed(2)}</li>`;
+}
 
-        // Initial call to display the cart contents
-        updateCartDisplay();</script>
+// Initial call to display the cart contents
+updateCartDisplay();
+    </script>
 </body>
 </html>

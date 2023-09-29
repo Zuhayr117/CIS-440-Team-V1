@@ -99,19 +99,23 @@ app.post('/insertCustomer', function (req, res) {
 // Define a route to handle the POST request for adding a new user
 app.post('/insertOrder', function (req, res) {
     console.log("inside insertOrder");
-    /*var customerId = req.body.customer_id;
-    var orderId = req.body.order_id;
-    var productId = req.body.product_id;
-    var orderAmount = req.body.order_amount;*/
+    var customer_id = req.body.customerId;
+    var order_id = req.body.orderId;
+    var product_id = req.body.productId;
+    var order_amount = req.body.orderAmount;
+    var order_date = req.body.orderDate;
 
-    var customerId = 2;
-    var orderId = 3;
-    var productId = 3;
-    var orderAmount = 10;
+    // new values to add
+    var address = req.body.address;
+    var paymentMethod = req.body.paymentMethod;
+    var cardNumber = req.body.cardNumber;
+    var paymentCVV = req.body.CVV;
+    var extraNotes = req.body.notes;
     
     // Define your SQL query to insert data
-    var myQuery = "INSERT INTO Orders (customer_id, order_id, product_id, order_amount) VALUES (?, ?, ?, ?)";
-    con.query(myQuery, [customerId, orderId, productId, orderAmount], function(err, result){
+    var myQuery = "INSERT INTO Orders (customer_id, order_id, product_id, order_amount, order_date, address, payment_method, card_number, cvv, Notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    con.query(myQuery, [customer_id, order_id, product_id, order_amount, order_date, 
+        address, paymentMethod, cardNumber, paymentCVV, extraNotes], function(err, result){
         if (err) {
             console.error("Error adding a new order: " + err);
             res.status(500).send("Error adding a new order");
