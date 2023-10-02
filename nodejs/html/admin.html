@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Floral Oasis</title>
+
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="../index.html">Login</a>
+        <a href="checkout.html">Checkout</a>
+    </nav>
+    <img id=logo src="../images/logo.png" alt="site_logo" width=500 length=100 class=center>
+    
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body> 
+    <hr>
+    <h1>✿ New Arrivals ✿</h1>
+    <div class="product1">
+        <img src="../images/pinkpeony.jpg" alt="Pink Peony" width=250 length=500>
+        <h2>Princess Peonies</h2>
+        <p>Quantity: <span id="pinkpeonyquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+
+    <div class="product2">
+        <img src="../images/redrose.jpg" alt="Red Rose" width=250 length=500>
+        <h2>Regal Rose</h2>
+        <p>Quantity: <span id="redrosequantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/tulips.jpeg" alt="Tulips"z width=250 length=500>
+        <h2>Tulips</h2>
+        <p>Quantity: <span id="tulipsquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/peonies.jpeg" alt="Peonies" width=250 length=500>
+        <h2>Peonies</h2>
+        <p>Quantity: <span id="peoniesquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/assorted.jpg" alt="Assorted" width=250 length=500>
+        <h2>Assorted</h2>
+        <p>Quantity: <span id="assortedquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/daffodil.jpg" alt="Daffodil" width=250 length=500>
+        <h2>Daffodil</h2>
+        <p>Quantity: <span id="daffquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/lilies.jpeg" alt="Lilies"z width=250 length=500>
+        <h2>Lilies</h2>
+        <p>Quantity: <span id="liliesquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/yellowlilies.jpeg" alt="Yellow Lilies" width=250 length=500>
+        <h2>Yellow Lilies</h2>
+        <p>Quantity: <span id="yellowliliesquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <div class="product">
+        <img src="../images/pinkrose.jpg" alt="Pink Rose" width=250 length=500>
+        <h2>Pink Rose</h2>
+        <p>Quantity: <span id="pinkrosequantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+
+    <div class="product">
+        <img src="../images/tulips.jpeg" alt="Tulips" width=250 length=500>
+        <h2>Tulips</h2>
+        <p>Quantity: <span id="tulipsquantity">100</span></p>
+        <button class="quantity-control" onclick="decrementQuantity('pinkpeonyquantity')">-</button>
+        <button class="quantity-control" onclick="incrementQuantity('pinkpeonyquantity')">+</button>
+    </div>
+    <hr>
+
+</body>
+
+<script>
+    function incrementQuantity(spanId) {
+        const quantitySpan = document.getElementById(spanId);
+        let currentQuantity = parseInt(quantitySpan.textContent);
+        currentQuantity++;
+        quantitySpan.textContent = currentQuantity;
+    }
+
+    function decrementQuantity(spanId) {
+        const quantitySpan = document.getElementById(spanId);
+        let currentQuantity = parseInt(quantitySpan.textContent);
+        if (currentQuantity > 0) {
+            currentQuantity--;
+            quantitySpan.textContent = currentQuantity;
+        }
+    }
+</script>
+
+</html>
+
+
