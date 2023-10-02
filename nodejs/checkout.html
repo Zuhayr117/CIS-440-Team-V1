@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <style>
+        body {
+            background-color: #FF66B2; 
+        }
+
+        body {
+            display: center;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FF66B2;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Floral Oasis</title>
+    
+     <img id=logo src="logo.png" alt="site_logo" width=500 length=100 class=center> 
+     <nav>
+        <a href="index.html">Home</a>
+        <a href="login.html">Log In</a>
+        <a href="checkout.html">Checkout</a>
+      </nav>
+    <link href="checkout.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    
+    <div class="container">
+
+    <h1>Checkout</h1>
+    <form id="checkoutForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required><br>
+
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" required><br>
+
+        <label for="Number">Phone Number:</label>
+        <input type="text" id="Number" required><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" required><br>
+
+        <label for="paymentMethod">payment methed:</label>
+        <input type="text" id="paymentMethod" required><br>
+
+        <label for="paymentCard">Card Number:</label>
+        <input type="text" id="paymentCard" required><br>
+
+        <label for="paymentCVV">CVV:</label>
+        <input type="text" id="paymentCVV" required><br>
+
+        
+        <label for="notes">Notes:</label>
+        <input type="text" id="notes" required><br>
+
+
+        <button type="submit">Place Order</button>
+    </form>
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // add order in database
+            addOrder();
+            alert('Order placed successfully!'); // In a real system, you'd process the order and payment here.
+        });
+
+        // Initialize the order database
+        let orderForDatabase = [];
+        let orderDatabase = [];
+        let databaseProducts = [];
+        var allProducts = [];
+        var lastOrderNum;
+
+        function convertCartToOrderDatabase(cart) {
+                
+                //var currentProductList = {};
+                for (const item of cart) {
+                    // check if product has already been added
+                    var currentProduct = item.productName;
+                    //console.log("printing individual product to be processed");
+                    //console.log(currentProduct);
+                    try {
+                        //console.log(allProducts[currentProduct].count >= 1);
+                        allProducts[currentProduct].count = allProducts[currentProduct].count + 1;
+                        allProducts[currentProduct].totalPrice  = allProducts[currentProduct].totalPrice + item.price;
+                    }
+                    catch (error) {
+                        if (error instanceof TypeError) {
+                            // Handle the type error here
+                            var newItem = item.productName;
+                            allProducts[newItem] = {
+                                nameOfProduct: item.productName,
+                                count: 1,
+                                totalPrice: item.price
+                            }
+                            console.log("TypeError caught");
+                        } else {
+                            // Handle other types of errors
+                            console.error('An error occurred:', error);
+                        }
+                    }
+                }
+            }
+
+        function addOrder() {
+            // Function to convert the cart into the order database
+
+            
+            getDatabaseInfo(orderDatabase);
+        }
+
+    // Function to convert the cart into the order database
+    function getDatabaseInfo(cart) {
+
+    // Make a GET request to fetch products from the server
+    var request1 = $.get("/getProducts", function (products) {
+        // Assuming 'products' is an array of objects with 'product_name' and 'product_id' properties
+        for (var i = 0; i < products.length; i++) {
+            // Push each product name and product ID into the 'databaseProducts' array
+            databaseProducts.push({
+                productName: products[i].product_name,
+                productId: products[i].product_id
+            });
+        }
+        // Now 'databaseProducts' contains the product names and IDs from the server
+        // You can use this array to map products in your cart to product IDs
+        const storedCart = JSON.parse(localStorage.getItem("cart"));
+        convertCartToOrderDatabase(storedCart);
+        for (var i=0; i < databaseProducts.length; i++)
+        {
+            try {
+                console.log(allProducts[databaseProducts[i].productName]);
+                allProducts[databaseProducts[i].productName].productId = databaseProducts[i].productId;
+                //console.log("printing new addition");
+            }
+            catch (error)
+            {
+                //console.log("error caught");
+            }
+        }
+    });
+
+    
+    var request2 = $.get("/getMostRecentOrder", function (orders) {
+        lastOrderNum = orders[0].order_id;
+    });
+
+    $.when(request1, request2).done(function () {
+    console.log("ajax requests done. Proceeding to process order info");
+    // process simple items to add
+    const currentUser = localStorage.getItem("currentUser");
+    var currentUserId = localStorage.getItem("currentUserId");
+    currentUserId = parseInt(currentUserId);
+
+    var orderAddress = $("#address").val();
+    var orderPaymentMethod = $("#paymentMethod").val();
+    var orderPaymentCard = parseInt($("#paymentCard").val());
+    var orderPaymentCVV = parseInt($("#paymentCVV").val());
+    var orderNotes = $("#notes").val();
+
+    var newRow = [];
+
+    // Iterate over the properties of the allProducts object
+    
+    for (const productName in allProducts) {
+        if (allProducts.hasOwnProperty(productName)) {
+            const product = allProducts[productName];
+
+            console.log("processing product:", productName);
+
+            // Get the current date and time in the desired format
+        const currentDateTime = new Date().toISOString().slice(0, 19).replace("T", " ");
+        
+            newRow = {
+                customerId: currentUserId,
+                orderId: lastOrderNum + 1,
+                productId: product.productId, // Use the product's actual ID
+                orderAmount: product.count, // Use the product's count
+                orderDate: currentDateTime.toString(),
+                address: orderAddress,
+                paymentMethod: orderPaymentMethod,
+                cardNumber: orderPaymentCard,
+                CVV: orderPaymentCVV,
+                notes: orderNotes
+            };
+
+            console.log("printing newRow");
+            console.log(newRow);
+
+            // Here, you can insert the newRow into the database if needed
+            InsertOrder(newRow);
+        }
+    }
+});
+}
+
+    function InsertOrder(newOrderPart)
+    {
+        console.log("inside insertOrder");
+        $.ajax({
+            type: "POST",
+            url: "/insertOrder",
+            contentType: "application/json", // Set content type to JSON
+            data: JSON.stringify(newOrderPart), // Convert the JavaScript object to JSON
+            success: function (response) {
+                console.log("New order added to the database");
+                $("#loginStatus").text("Order processed.");
+            },
+            error: function (error) {
+                console.error("Error adding a new row: " + error.responseText);
+            }
+        }
+        )
+    }
+
+
+
+    const cart = [];
+
+function addToCart(productName, price) {
+    cart.push({ productName, price });
+    updateCartDisplay();
+}
+
+function updateCartDisplay() {
+    const cartList = document.getElementById('cart');
+    cartList.innerHTML = '';
+
+    let total = 0;
+    for (const item of cart) {
+        total += item.price;
+        cartList.innerHTML += `<li>${item.productName} - $${item.price.toFixed(2)}</li>`;
+    }
+
+    cartList.innerHTML += `<li>Total: $${total.toFixed(2)}</li>`;
+}
+
+document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    alert('Order placed successfully!'); // In a real system, you'd process the order and payment here.
+    cart.length = 0; // Clear the cart
+    updateCartDisplay();
+});
+
+
+    </script>
+</body>
+</html>
