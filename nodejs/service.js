@@ -75,6 +75,25 @@ app.get('/getCustomers', function (req, res) {
     });
 });
 
+// Define a route to handle the GET request for fetching orders
+app.get('/getOrders', function (req, res) {
+    var myQuery = "SELECT o.id, o.order_id, o.order_date, c.customer_username, c.customer_name, p.product_name, o.order_amount, o.order_status, o.Notes " +
+    "FROM Orders AS o " +
+    "JOIN Customers AS c ON o.customer_id = c.customer_id " +
+    "JOIN Products AS p ON o.product_id = p.product_id " +
+    "ORDER BY o.order_id DESC;";
+    
+    con.query(myQuery, function(err, result, fields) {
+        if (err) {
+            console.error("Error fetching products: " + err);
+            res.status(500).send("Error fetching orders");
+        } else {
+            console.log("Fetched products from the database");
+            res.status(200).json(result);
+        }
+    });
+});
+
 // Define a route to handle the POST request for adding a new user
 app.post('/insertCustomer', function (req, res) {
     console.log("inside insertCustomers");
