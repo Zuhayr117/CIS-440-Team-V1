@@ -31,13 +31,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Floral Oasis</title>
     
-     <img id=logo src="logo.png" alt="site_logo" width=500 length=100 class=center> 
-     <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html">Log In</a>
-        <a href="checkout.html">Checkout</a>
-      </nav>
-    <link href="checkout.css" rel="stylesheet" type="text/css">
+     <img id=logo src="./images/logo.png" alt="site_logo" width=500 length=100 class=center> 
+     <script src=https://code.jquery.com/jquery-3.6.4.min.js> </script>
 </head>
 <body>
     
@@ -71,13 +66,19 @@
         <input type="text" id="notes" required><br>
 
 
-        <button type="submit">Place Order</button>
+        <button type="submit" id="submitButton">Place Order</button>
     </form>
     <script>
         document.getElementById('checkoutForm').addEventListener('submit', function (e) {
             e.preventDefault();
+
+            console.log("1: printing localStorage.getItem('cart'):");
+            console.log(localStorage.getItem('cart'));
             // add order in database
-            addOrder();
+            var request3 = addOrder();
+            $.when(request3).done(function () {
+                document.getElementById('submitButton').setAttribute('disabled', true);
+            })
             alert('Order placed successfully!'); // In a real system, you'd process the order and payment here.
         });
 
@@ -90,6 +91,8 @@
 
         function convertCartToOrderDatabase(cart) {
                 
+            console.log("printing cart to iterate: ");
+            console.log(cart);
                 //var currentProductList = {};
                 for (const item of cart) {
                     // check if product has already been added
@@ -121,8 +124,6 @@
 
         function addOrder() {
             // Function to convert the cart into the order database
-
-            
             getDatabaseInfo(orderDatabase);
         }
 
@@ -141,7 +142,11 @@
         }
         // Now 'databaseProducts' contains the product names and IDs from the server
         // You can use this array to map products in your cart to product IDs
-        const storedCart = JSON.parse(localStorage.getItem("cart"));
+        var storedCart = JSON.parse(localStorage.getItem('cart'));
+        console.log("printing localStorage.getItem('cart'):");
+        console.log(localStorage.getItem('cart'));
+        console.log("printing storedCart:");
+        console.log(storedCart);
         convertCartToOrderDatabase(storedCart);
         for (var i=0; i < databaseProducts.length; i++)
         {
@@ -205,13 +210,13 @@
             console.log(newRow);
 
             // Here, you can insert the newRow into the database if needed
-            InsertOrder(newRow);
+            insertOrder(newRow);
         }
     }
 });
 }
 
-    function InsertOrder(newOrderPart)
+    function insertOrder(newOrderPart)
     {
         console.log("inside insertOrder");
         $.ajax({
@@ -229,37 +234,6 @@
         }
         )
     }
-
-
-
-    const cart = [];
-
-function addToCart(productName, price) {
-    cart.push({ productName, price });
-    updateCartDisplay();
-}
-
-function updateCartDisplay() {
-    const cartList = document.getElementById('cart');
-    cartList.innerHTML = '';
-
-    let total = 0;
-    for (const item of cart) {
-        total += item.price;
-        cartList.innerHTML += `<li>${item.productName} - $${item.price.toFixed(2)}</li>`;
-    }
-
-    cartList.innerHTML += `<li>Total: $${total.toFixed(2)}</li>`;
-}
-
-document.getElementById('checkoutForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    alert('Order placed successfully!'); // In a real system, you'd process the order and payment here.
-    cart.length = 0; // Clear the cart
-    updateCartDisplay();
-});
-
-
     </script>
 </body>
 </html>
