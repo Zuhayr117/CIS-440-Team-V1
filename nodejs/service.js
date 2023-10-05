@@ -148,6 +148,19 @@ app.post('/insertOrder', function (req, res) {
 // Serve static files (HTML, CSS, JavaScript)
 app.use(express.static(__dirname));
 
-app.listen(8000, function() {
+/*app.listen(8000, function() {
     console.log("\nThe Web server is alive!!!\n" + "It's listening on http://127.0.0.1:8000 or http://localhost:8000");
+});*/
+const port = 8080;
+app.listen(port, 'localhost', () => {
+  console.log(`Server is running on http://localhost:${port} or http://10.159.32.68:${port}`);
 });
+/*app.listen(80, '192.168.0.126', function()
+{
+    console.log("\nThe Web server is alive!!!\n" + "It's listening on http://192.168.0.126:80");
+});*/
+
+/*app.listen(8080, '10.159.81.71', function()
+{
+    console.log("\nThe Web server is alive!!!\n" + "It's listening on http://10.159.81.71:8080");
+});*/
